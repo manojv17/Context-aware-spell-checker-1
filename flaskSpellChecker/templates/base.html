@@ -27,7 +27,7 @@
         </button>
 
         <!-- Create Navigation Bar Items -->
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav" style="margin-left: 160px;">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{url_for('default_page')}}">English</a>
@@ -37,9 +37,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('german_page')}}">German</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('irish_page')}}">Irish</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('portuguese_page')}}">Portuguese</a>
@@ -68,18 +65,22 @@
     <body class="text-center">
         <br>
 
-        <h2>
-            {%block pageTitle%}
-
-            {%endblock%}
-
-        </h2>
+        
 
         <br>
         <!--<form action="{{ url_for('submit') }}" method="post">-->
-        <div contenteditable="true" id="textArea"
-            style="margin:auto; padding:5px; width:80%; height: 450px; text-align:left; background-color: #212121; color: white;">
+        <div style="display: grid; grid-template-columns: repeat(2,1fr);">
+            <h2 style="color: black;margin-top: 110px;">
+                {%block pageTitle%}
+    
+                {%endblock%}
+    
+            </h2>
+            <textarea contenteditable="true" id="textArea"
+                     style="margin:auto; padding:5px; width:80%; height: 300px; text-align:left; background-color: rgb(255 255 255); color: black;border-radius: 10px;border: none;box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);">
+            </textarea>
         </div>
+        
 
         <!--<br>
     <input type="submit" value="{%block submitTextBtn%}{%endblock%}">
@@ -140,7 +141,7 @@
 <!-- Default Style Formats for body and context menu-->
 <style type="text/css">
     body {
-        background-color: #000000;
+        background-color: aliceblue;
         color: rgb(129, 199, 178)
     }
 
