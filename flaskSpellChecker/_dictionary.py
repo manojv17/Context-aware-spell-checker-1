@@ -1,6 +1,7 @@
 import sys
 import csv
 import ast
+from configparser import ConfigParser
 
 class Dictionary:
     def __init__(self, language, numWords=10000):
@@ -12,10 +13,14 @@ class Dictionary:
     def __createFreqList(self, language, numEntries):
         print("Creating dictionary...")
         csv.field_size_limit(sys.maxsize)
-
-        wordFreqFile = "flaskSpellChecker/freqListData/" + language + "/" + language + "FreqList.csv"
-        prevWordFreqFile = "flaskSpellChecker/freqListData/" + language + "/" + language + "PrevFreqList.csv"
-        nextWordFreqFile = "flaskSpellChecker/freqListData/" + language + "/" + language + "NextFreqList.csv"
+        
+        configFile = ConfigParser()
+        configFile.read("flaskSpellChecker/config.ini")
+        
+        root = configFile['DEFAULT']['root']
+        wordFreqFile = root + '/' + "freqListData/" + language + "/" + language + "FreqList.csv"
+        prevWordFreqFile = root + '/' + "freqListData/" + language + "/" + language + "PrevFreqList.csv"
+        nextWordFreqFile = root + '/' + "freqListData/" + language + "/" + language + "NextFreqList.csv"
         
         wordDict = self.__makeFrequencyDict(wordFreqFile, numEntries)
         prevWordDict = self.__makeSurroundingWordsDict(prevWordFreqFile, numEntries)
