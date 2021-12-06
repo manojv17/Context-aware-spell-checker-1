@@ -2,7 +2,11 @@ import configparser
 from spellchecker import SpellChecker
 import string
 import re
-from dictionary import Dictionary
+from flaskSpellChecker import _dictionary
+
+# Dictionaries
+en = _dictionary.Dictionary('en')
+
 
 def simpleChecker(text):
     
@@ -64,11 +68,15 @@ def spellCheckText(dictionary, text):
             corrections = spellCheckWord(dictionary, word, prevWord, nextWord)
 
             if corrections:
-                misspellings[contextedWord] = corrections
-                wordIndex[contextedWord] = [i]
+                #misspellings[contextedWord] = corrections
+                #wordIndex[contextedWord] = [i]
+                misspellings[word] = corrections
+                wordIndex[word] = [i]
+
         else:
-            wordIndex[contextedWord].append(i)
-    
+            #wordIndex[contextedWord].append(i)
+            wordIndex[word].append(i)
+
     return misspellings, wordIndex
 
 
@@ -204,9 +212,9 @@ def rankCorrections(dictionary, possibilities, prevWord="", nextWord=""):
 
     return rankedCorrections
 
-
+"""
 if __name__ == "__main__":
-    ga = Dictionary('ga')
+    ga = _dictionary.WordDictionary('ga')
 
     #    irishDict, prevDict, nextDict = generateIrishDictionary()
     #    print("Word: an")
@@ -214,20 +222,21 @@ if __name__ == "__main__":
 
     #text = "Sin, sin. SIn: SIN? xin, xin. XIn; XIN!"
 
-    text = "a xin an. Iúdá ajus! ró luath ag. ró l-uat-h ag"
+    #text = "a xin an. Iúdá ajus! ró luath ag. ró l-uat-h ag"
 
-    misspellings = spellCheckWord(ga, "xin")
-    print("Xin Corrections:", misspellings)
+    #misspellings = spellCheckWord(ga, "xin")
+    #print("Xin Corrections:", misspellings)
 
-    misspellings = spellCheckWord(ga, "xin", "a", "an")
-    print("Xin Corrections:", misspellings)
+    #misspellings = spellCheckWord(ga, "xin", "a", "an")
+    #print("Xin Corrections:", misspellings)
 
-    misspellings = spellCheckWord(ga, "xin", prevWord="a")
-    print("Xin Corrections:", misspellings)
+    #misspellings = spellCheckWord(ga, "xin", prevWord="a")
+    #print("Xin Corrections:", misspellings)
 
-    misspellings = spellCheckWord(ga, "xin", nextWord="an")
-    print("Xin Corrections:", misspellings)
+    #misspellings = spellCheckWord(ga, "xin", nextWord="an")
+    #print("Xin Corrections:", misspellings)
 
     misspellings, index = spellCheckText(ga, text)
     print("Mispellings:", misspellings)
     print("Indices:", index)
+"""
