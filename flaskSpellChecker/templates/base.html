@@ -79,7 +79,52 @@
             <textarea contenteditable="true" id="textArea"
                      style="margin:auto; padding:5px; width:80%; height: 300px; text-align:left; background-color: rgb(255 255 255); color: black;border-radius: 10px;border: none;box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);">
             </textarea>
+            <h4>Word Count: <span id="count">0</span></h4>
+                    <script>
+                        var count = document.getElementById('count');
+            var input = document.getElementById('textArea');
+            var globalWordCounter = 0;
+            var WORD_LIMIT = 20;
+            
+            input.addEventListener('keydown', function(e) {
+              if (globalWordCounter > WORD_LIMIT && e.code !== "Backspace") {
+                e.preventDefault();
+                return alert("You have reached the word limit");
+              }
+            });
+            
+            input.addEventListener('keyup', function(e) {
+              wordCounter(e.target.value);
+            });
+            
+            function isWord(str) {
+              var alphaNumericFound = false;
+              for (var i = 0; i < str.length; i++) {
+                var code = str.charCodeAt(i);
+                if ((code > 47 && code < 58) || // numeric (0-9)
+                    (code > 64 && code < 91) || // upper alpha (A-Z)
+                    (code > 96 && code < 123)) { // lower alpha (a-z)
+                  alphaNumericFound = true;
+                  return alphaNumericFound;
+                }
+              }
+              return alphaNumericFound;
+            }
+            
+            function wordCounter(text) {
+              var text = input.value.split(' ');
+              var wordCount = 0;
+              for (var i = 0; i < text.length; i++) {
+                if (!text[i] == ' ' && isWord(text[i])) {
+                  wordCount++;
+                }
+              }
+              globalWordCounter = wordCount;
+              count.innerText = wordCount;
+            }
+                    </script>
         </div>
+        
         
 
         <!--<br>
